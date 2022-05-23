@@ -1,4 +1,4 @@
-const Contact = require("../../models/contacts");
+const { Contact } = require("../../models/Contact");
 const { createError } = require("../../helpers");
 
 const updateFavoriteContacts = async (req, res, next) => {
