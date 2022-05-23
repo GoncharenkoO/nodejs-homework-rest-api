@@ -2,16 +2,16 @@ const { Contact } = require("../../models/Contact");
 
 const listContacts = async (req, res, next) => {
   try {
-    const { page, limit } = req.query;
-    const { _id } = req.user;
+    const owner = req.user._id;
+    let { page, limit } = req.query;
     const skip = (page - 1) * limit;
-    const result = await Contact.find(
-      { owner: _id },
-      {
-        skip,
-        limit: Number(limit),
-      }
-    ).populate("owner", "email");
+    limit = parseInt(limit) > 20 ? 20 : parseInt(limit);
+
+    const result = await Contact.find({ owner })
+      .populate("owner", "email")
+      .select({ __v: 0 })
+      .skip(skip)
+      .limit(limit);
     res.status(201).json(result);
   } catch (error) {
     next(error);

@@ -18,12 +18,13 @@ router.post("/", auth, validation(schemas.add), ctrl.addContact);
 
 router.patch(
   "/:id/favorite",
+  auth,
   validation(schemas.updateFavorite),
   ctrl.updateFavoriteContacts
 );
 
 router.delete("/:id", auth, ctrl.removeContact);
 
-router.put("/:id", validation(schemas.add), ctrl.updateContact);
+router.put("/:id", auth, validation(schemas.add), ctrl.updateContact);
 
 module.exports = router;
