@@ -14,7 +14,7 @@ const update = async (req, res, next) => {
     const name = `${_id}.${extension}`;
     const resultDir = path.join(avatarsDir, name);
     const image = await Jimp.read(resultDir);
-    await image.resize(250, 250).write(resultDir);
+    await image.resize(250, 250).write(tempDir);
     await fs.rename(tempDir, resultDir);
     const avatarURL = path.join("avatars", name);
     await User.findByIdAndUpdate(_id, { avatarURL });
