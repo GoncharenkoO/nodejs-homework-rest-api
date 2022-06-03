@@ -17,6 +17,9 @@ const verifyEmail = async (req, res, next) => {
       html: `<a target="_blank" href="http://localhost:3000/api/users/verify/${user.verificationToken}">Натисніть для підтвердження email</a>`,
     };
     await sendEmail(mail);
+    res.json({
+      message: "Verification email sent",
+    });
   } catch (error) {
     next(error);
   }
